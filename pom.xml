@@ -18,6 +18,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.1</version>
 				<configuration>
 					<!--notappendassemblyidinreleasefilename -->
 					<appendAssemblyId>false</appendAssemblyId>

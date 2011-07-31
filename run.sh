@@ -23,8 +23,8 @@ start(){
 		      -XX:+UseFastAccessorMethods \
 		      -XX:+HeapDumpOnOutOfMemoryError \
 		      -verbose:gc \
-		      -XX:+PrintGCDetails 
-		      -XX:+PrintGCTimeStamps
+		      -XX:+PrintGCDetails \
+		      -XX:+PrintGCTimeStamps \
 		      -Xloggc:logs/gc`date +%Y%m%d%H%M%S`.log \
 		      -cp $CP com.google.code.fqueue.memcached.StartServer >>logs/log.log &
 		echo $! >"$pidfile"
