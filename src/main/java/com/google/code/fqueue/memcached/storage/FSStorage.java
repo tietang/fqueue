@@ -22,12 +22,14 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.google.code.fqueue.FQueue;
 import com.google.code.fqueue.exception.ConfigException;
 import com.google.code.fqueue.util.Config;
+import com.google.code.fqueue.util.JVMMonitor;
 import com.thimbleware.jmemcached.LocalCacheElement;
 import com.thimbleware.jmemcached.protocol.exceptions.ClientException;
 import com.thimbleware.jmemcached.protocol.exceptions.DatabaseException;
@@ -115,7 +117,7 @@ public class FSStorage implements CacheStorage<String, LocalCacheElement> {
         // 获取队列中元素的个数
         if (keystring.startsWith("size")) {
             try {
-                // size|bbs|pass
+                // size|bbs
                 // size操作无密码验证，只需要队列名称正确即可
                 String[] clientInfo = QueueClient.parse(keystring, '|');
                 if (clientInfo.length < 2 || authorizationMap.containsKey(clientInfo[1]) == false) {
@@ -168,6 +170,38 @@ public class FSStorage implements CacheStorage<String, LocalCacheElement> {
                 log.error(e.getMessage(), e);
             } catch (Exception e) {
                 log.error("reloadAuthorization error", e);
+                return null;
+            }
+        }
+        // 重新加载权限信息
+        if (keystring.startsWith("monitor")) {
+            try {
+                // size|bbs
+                // size操作无密码验证，只需要队列名称正确即可
+                String[] clientInfo = QueueClient.parse(keystring, '|');
+                if (clientInfo.length < 2) {
+                    return null;
+                }
+                String items = clientInfo[1];
+                StringBuilder stats = new StringBuilder();
+                if (items != null) {
+                    String[] itemList = StringUtils.split(items, ",");
+                    for (int i = 0, len = itemList.length; i < len; i++) {
+                        if (i > 0) {
+                            stats.append("\r\n");
+                        }
+                        String data = JVMMonitor.getMonitorStats(itemList[i]);
+                        stats.append(data);
+                    }
+                } else {
+                    stats.append("need items");
+                }
+
+                LocalCacheElement element = new LocalCacheElement(keystring, 0, 0, 0);
+                element.setData(stats.toString().getBytes());
+                return element;
+            } catch (Exception e) {
+                log.error("monitor " + keystring + "error", e);
                 return null;
             }
         }
