@@ -20,58 +20,40 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 /**
- *@author sunli
- *@date 2011-5-23
- *@version $Id$
+ * @author sunli
+ * @date 2011-5-23
+ * @version $Id$
  */
 public class QueueClient {
-	private static Map<String, String[]> cache = new ConcurrentSkipListMap<String, String[]>();
+    public static String[] parse(String keyString) {
+        return parse(keyString, '_');
+    }
 
-	public static String[] parse(String keyString) {
-		return parse(keyString, '_');
-	}
+    /**
+     * 按照"_"进行切分
+     * 
+     * @param keyString
+     * @return
+     */
+    public static String[] parseWithCache(String keyString) {
+        return parse(keyString, '_');
+    }
 
-	/**
-	 * 按照"_"进行切分
-	 * 
-	 * @param keyString
-	 * @return
-	 */
-	public static String[] parseWithCache(String keyString) {
-		return parseWithCache(keyString, '_');
-	}
+    public static String[] parse(String keyString, Character separator) {
+        LinkedList<String> list = new LinkedList<String>();
+        int start = 0;
+        for (int i = 0, len = keyString.length(); i < len; i++) {
+            if (keyString.charAt(i) == separator) {
+                list.add(keyString.substring(start, i));
+                start = i + 1;
+            }
+            if (i == len - 1) {
+                list.add(keyString.substring(start));
+            }
+        }
+        String[] result = new String[list.size()];
+        return list.toArray(result);
 
-	/**
-	 * 按照指定的separator切分字符串
-	 * 
-	 * @param keyString
-	 * @param separator
-	 * @return
-	 */
-	public static String[] parseWithCache(String keyString, Character separator) {
-		String[] result = cache.get(keyString + " " + separator);
-		if (result == null) {
-			result = parse(keyString, separator);
-			cache.put(keyString + " " + separator, result);
-		}
-		return result;
-	}
-
-	public static String[] parse(String keyString, Character separator) {
-		LinkedList<String> list = new LinkedList<String>();
-		int start = 0;
-		for (int i = 0, len = keyString.length(); i < len; i++) {
-			if (keyString.charAt(i) == separator) {
-				list.add(keyString.substring(start, i));
-				start = i + 1;
-			}
-			if (i == len - 1) {
-				list.add(keyString.substring(start));
-			}
-		}
-		String[] result = new String[list.size()];
-		return list.toArray(result);
-
-	}
+    }
 
 }

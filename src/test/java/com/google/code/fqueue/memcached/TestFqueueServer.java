@@ -126,6 +126,10 @@ public class TestFqueueServer extends TestCase {
         client.set(keyName, 0, "12345");
         assertEquals(1, getSize());
         assertEquals("12345", client.get(keyName));
+        assertEquals(0, getSize());
+        client.set(keyName + "_" + System.currentTimeMillis(), 0, "12345");
+        assertEquals(1, getSize());
+        assertEquals("12345", client.get(keyName + "_" + System.currentTimeMillis()));
         log.info("push 10000 items");
         long start = System.currentTimeMillis();
         // 测试顺序写入10000个数据，再按顺序取出来，是否正确
