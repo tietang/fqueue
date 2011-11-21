@@ -77,15 +77,15 @@ public class TestFqueueServer extends TestCase {
         log.info("running at port " + Config.getSetting("port"));
         builder = new XMemcachedClientBuilder(AddrUtil.getAddresses("127.0.0.1:12001"));
         builder.setConnectionPoolSize(50); // set connection pool size to five
-
+        builder.setSocketOption(StandardSocketOption.SO_KEEPALIVE, true);
+        builder.setSocketOption(StandardSocketOption.SO_RCVBUF, 64 * 1024);
+        builder.setSocketOption(StandardSocketOption.SO_SNDBUF, 64 * 1024);
+        builder.setSocketOption(StandardSocketOption.SO_REUSEADDR, true);
+        builder.setSocketOption(StandardSocketOption.TCP_NODELAY, false);
         try {
             client = builder.build();
             client.setOptimizeGet(false);
-            builder.setSocketOption(StandardSocketOption.SO_KEEPALIVE, true);
-            builder.setSocketOption(StandardSocketOption.SO_RCVBUF, 64 * 1024);
-            builder.setSocketOption(StandardSocketOption.SO_SNDBUF, 64 * 1024);
-            builder.setSocketOption(StandardSocketOption.SO_REUSEADDR, true);
-            builder.setSocketOption(StandardSocketOption.TCP_NODELAY, false);
+           
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
