@@ -10,7 +10,7 @@ done
 retval=0
 # start the server
 start(){
- 	printf 'Starting the server of ICQueue\n'
+ 	printf 'Starting the server of FQueue\n'
 	if [ -f "$pidfile" ] ; then
 		pid=`cat "$pidfile"`
     	printf 'Existing process: %d\n' "$pid"
@@ -38,7 +38,7 @@ start(){
 }
 # stop the server
 stop(){
-  printf 'Stopping the server of ICQueue\n'
+  printf 'Stopping the server of FQueue\n'
   if [ -f "$pidfile" ] ; then
     pid=`cat "$pidfile"`
     printf "Sending the terminal signal to the process: %s\n" "$pid"
