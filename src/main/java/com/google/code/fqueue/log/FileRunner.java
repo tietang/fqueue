@@ -27,6 +27,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.code.fqueue.util.MappedByteBufferUtil;
+
 /**
  * @author sunli
  * @date 2011-5-18
@@ -99,6 +101,9 @@ public class FileRunner implements Runnable {
             mappedByteBuffer.putInt(-1);// 12next fileindex
             mappedByteBuffer.putInt(-2);// 16
             mappedByteBuffer.force();
+            MappedByteBufferUtil.clean(mappedByteBuffer);
+            fc.close();
+            raFile.close();
             return true;
         } else {
             return false;
