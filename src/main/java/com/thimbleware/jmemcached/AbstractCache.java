@@ -28,10 +28,10 @@ public abstract class AbstractCache<CACHE_ELEMENT extends CacheElement> implemen
 
 	protected final AtomicLong started = new AtomicLong();
 
-	protected final AtomicInteger getCmds = new AtomicInteger();
-	protected final AtomicInteger setCmds = new AtomicInteger();
-	protected final AtomicInteger getHits = new AtomicInteger();
-	protected final AtomicInteger getMisses = new AtomicInteger();
+	protected final AtomicLong getCmds = new AtomicLong();
+	protected final AtomicLong setCmds = new AtomicLong();
+	protected final AtomicLong getHits = new AtomicLong();
+	protected final AtomicLong getMisses = new AtomicLong();
 	protected final AtomicLong casCounter = new AtomicLong(1);
 	protected final OperatingSystemMXBean bean = ManagementFactory.getOperatingSystemMXBean();
 
@@ -77,19 +77,19 @@ public abstract class AbstractCache<CACHE_ELEMENT extends CacheElement> implemen
 
 	public abstract long getCurrentBytes();
 
-	public final int getGetCmds() {
+	public final long getGetCmds() {
 		return getCmds.get();
 	}
 
-	public final int getSetCmds() {
+	public final long getSetCmds() {
 		return setCmds.get();
 	}
 
-	public final int getGetHits() {
+	public final long getGetHits() {
 		return getHits.get();
 	}
 
-	public final int getGetMisses() {
+	public final long getGetMisses() {
 		return getMisses.get();
 	}
 

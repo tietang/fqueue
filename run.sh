@@ -42,8 +42,8 @@ stop(){
   if [ -f "$pidfile" ] ; then
     pid=`cat "$pidfile"`
     printf "Sending the terminal signal to the process: %s\n" "$pid"
-    PROCESSPID=`ps -ef|awk  '{print $2}'|grep "$pid"`
-    if [[ $PROCESSPID -ne "$pidfile" ]] ; then
+    PROCESSPID=`ps -ef|awk  '{print $2}'|grep -w "$pid"`
+    if [ $PROCESSPID -ne "$pid" ] ; then
     	rm -f "$pidfile";
         printf 'Done\n'
     fi
@@ -51,8 +51,8 @@ stop(){
     c=0
     while true ; do
       sleep 0.1
-      PROCESSPID=`ps -ef|awk  '{print $2}'|grep "$pid"`
-      if [[ $PROCESSPID -eq "$pidfile" ]] ; then
+      PROCESSPID=`ps -ef|awk  '{print $2}'|grep -w "$pid"`
+      if [ $PROCESSPID ] && [ $PROCESSPID -eq "$pid" ] ; then
         c=`expr $c + 1`
         if [ "$c" -ge 100 ] ; then
           printf 'Hanging process: %d\n' "$pid"

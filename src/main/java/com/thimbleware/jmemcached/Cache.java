@@ -161,22 +161,22 @@ public interface Cache<CACHE_ELEMENT extends CacheElement> {
 	/**
 	 * @return the number of get commands executed
 	 */
-	int getGetCmds();
+	long getGetCmds();
 
 	/**
 	 * @return the number of set commands executed
 	 */
-	int getSetCmds();
+	long getSetCmds();
 
 	/**
 	 * @return the number of get hits
 	 */
-	int getGetHits();
+	long getGetHits();
 
 	/**
 	 * @return the number of stats
 	 */
-	int getGetMisses();
+	long getGetMisses();
 
 	/**
 	 * Retrieve stats about the cache. If an argument is specified, a specific
