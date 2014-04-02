@@ -24,7 +24,7 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
@@ -44,7 +44,7 @@ public class LogEntity {
 	public static final byte WRITEFULL = 3;
 	public static final String MAGIC = "FQueuefs";
 	public static int messageStartPosition = 20;
-	private final Executor executor = Executors.newSingleThreadExecutor();
+	private final ExecutorService executor = Executors.newSingleThreadExecutor();
 	private File file;
 	private RandomAccessFile raFile;
 	private FileChannel fc;
@@ -254,6 +254,7 @@ public class LogEntity {
 				}
 			});
 			mappedByteBuffer = null;
+			executor.shutdown();
 			fc.close();
 			raFile.close();
 		} catch (IOException e) {

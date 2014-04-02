@@ -42,6 +42,7 @@ public class FileRunner implements Runnable {
     private static final Queue<String> createQueue = new ConcurrentLinkedQueue<String>();
     private String baseDir = null;
     private int fileLimitLength = 0;
+    private volatile boolean keepRunning = true;
 
     public static void addDeleteFile(String path) {
         deleteQueue.add(path);
@@ -59,7 +60,7 @@ public class FileRunner implements Runnable {
     @Override
     public void run() {
         String filePath, fileNum;
-        while (true) {
+        while (keepRunning) {
             filePath = deleteQueue.poll();
             fileNum = createQueue.poll();
             if (filePath == null && fileNum == null) {
@@ -108,5 +109,9 @@ public class FileRunner implements Runnable {
         } else {
             return false;
         }
+    }
+    
+    public void exit(){
+        keepRunning = false;
     }
 }

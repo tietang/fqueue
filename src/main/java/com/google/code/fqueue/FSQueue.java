@@ -17,7 +17,7 @@ package com.google.code.fqueue;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.apache.commons.logging.Log;
@@ -43,7 +43,9 @@ public class FSQueue {
 	private static final String dbName = "icqueue.db";
 	private static final String fileSeparator = System.getProperty("file.separator");
 	private String path = null;
-	private final Executor executor = Executors.newSingleThreadExecutor();
+	private final ExecutorService executor = Executors.newSingleThreadExecutor();
+	
+	private FileRunner deleteFileRunner;
 	/**
 	 * 文件操作实例
 	 */
@@ -91,7 +93,7 @@ public class FSQueue {
 					readerIndex);
 
 		}
-		FileRunner deleteFileRunner = new FileRunner(path + fileSeparator + filePrefix + "data_", fileLimitLength);
+		deleteFileRunner = new FileRunner(path + fileSeparator + filePrefix + "data_", fileLimitLength);
 		executor.execute(deleteFileRunner);
 	}
 
@@ -196,6 +198,8 @@ public class FSQueue {
 	public void close() {
 		readerHandle.close();
 		writerHandle.close();
+		deleteFileRunner.exit();
+		executor.shutdown();
 	}
 
 	public int getQueuSize() {
