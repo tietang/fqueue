@@ -16,13 +16,11 @@
 package com.google.code.fqueue.memcached.storage;
 
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.concurrent.ConcurrentSkipListMap;
 
 /**
  * @author sunli
- * @date 2011-5-23
  * @version $Id$
+ * @date 2011-5-23
  */
 public class QueueClient {
     public static String[] parse(String keyString) {
@@ -31,7 +29,7 @@ public class QueueClient {
 
     /**
      * 按照"_"进行切分
-     * 
+     *
      * @param keyString
      * @return
      */

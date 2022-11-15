@@ -14,36 +14,37 @@
  *  limitations under the License.
  */
 package com.google.code.fqueue.exception;
+
 /**
- *@author sunli
- *@date 2011-5-18
- *@version $Id$
+ * @author sunli
+ * @version $Id$
+ * @date 2011-5-18
  */
 public class FileFormatException extends Exception {
 
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6950322066714479555L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6950322066714479555L;
 
-	/**
-	 * Constructs an {@code FileFormatException} with {@code null} as its error
-	 * detail message.
-	 */
-	public FileFormatException() {
-		super();
-	}
+    /**
+     * Constructs an {@code FileFormatException} with {@code null} as its error
+     * detail message.
+     */
+    public FileFormatException() {
+        super();
+    }
 
-	public FileFormatException(String message) {
-		super(message);
-	}
+    public FileFormatException(String message) {
+        super(message);
+    }
 
-	public FileFormatException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public FileFormatException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public FileFormatException(Throwable cause) {
-		super(cause);
-	}
+    public FileFormatException(Throwable cause) {
+        super(cause);
+    }
 }

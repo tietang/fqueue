@@ -15,21 +15,20 @@
  */
 package com.google.code.fqueue.memcached;
 
-import java.net.InetSocketAddress;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.google.code.fqueue.memcached.storage.FSStorage;
 import com.thimbleware.jmemcached.CacheImpl;
 import com.thimbleware.jmemcached.LocalCacheElement;
 import com.thimbleware.jmemcached.MemCacheDaemon;
 import com.thimbleware.jmemcached.storage.CacheStorage;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.net.InetSocketAddress;
 
 /**
  * @author sunli
- * @date 2011-5-18
  * @version $Id$
+ * @date 2011-5-18
  */
 public class StartNewQueue {
     private static final Log log = LogFactory.getLog(StartNewQueue.class);

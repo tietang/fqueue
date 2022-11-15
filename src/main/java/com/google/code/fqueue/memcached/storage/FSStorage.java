@@ -15,17 +15,6 @@
  */
 package com.google.code.fqueue.memcached.storage;
 
-import java.io.IOException;
-import java.util.AbstractQueue;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.ReentrantLock;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.google.code.fqueue.FQueue;
 import com.google.code.fqueue.exception.ConfigException;
 import com.google.code.fqueue.util.Config;
@@ -34,13 +23,23 @@ import com.thimbleware.jmemcached.LocalCacheElement;
 import com.thimbleware.jmemcached.protocol.exceptions.ClientException;
 import com.thimbleware.jmemcached.protocol.exceptions.DatabaseException;
 import com.thimbleware.jmemcached.storage.CacheStorage;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.io.IOException;
+import java.util.AbstractQueue;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Memcached的缓存存储实现，底层通过FQueue实现。 通过Memcached协议的key来实现二次协议
- * 
+ *
  * @author sunli
- * @date 2011-5-11
  * @version $Id$
+ * @date 2011-5-11
  */
 public class FSStorage implements CacheStorage<String, LocalCacheElement> {
     /**
@@ -61,6 +60,7 @@ public class FSStorage implements CacheStorage<String, LocalCacheElement> {
      * 安全验证map
      */
     private static Map<String, String> authorizationMap = new ConcurrentHashMap<String, String>(20);
+
     static {
         loadAuthorization();
     }
@@ -108,7 +108,7 @@ public class FSStorage implements CacheStorage<String, LocalCacheElement> {
 
     /**
      * get方式的二次协议实现
-     * 
+     *
      * @param keystring
      * @return
      * @throws ClientException
@@ -301,7 +301,7 @@ public class FSStorage implements CacheStorage<String, LocalCacheElement> {
 
     /**
      * 获取指定名称的队列存储实例 如果不存存在，根据create参数决定是否创建
-     * 
+     *
      * @param name
      * @return
      * @throws Exception
@@ -327,7 +327,7 @@ public class FSStorage implements CacheStorage<String, LocalCacheElement> {
 
     /**
      * 获取或者创建指定名称的队列存储实例
-     * 
+     *
      * @param name
      * @return
      * @throws Exception

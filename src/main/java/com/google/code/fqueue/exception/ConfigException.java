@@ -14,30 +14,32 @@
  *  limitations under the License.
  */
 package com.google.code.fqueue.exception;
+
 /**
- *@author sunli
- *@date 2011-5-18
- *@version $Id$
+ * @author sunli
+ * @version $Id$
+ * @date 2011-5-18
  */
 public class ConfigException extends RuntimeException {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5680376999772385539L;
-	public ConfigException() { 
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5680376999772385539L;
 
-	public ConfigException(String message) {
-		super(message);
-	}
+    public ConfigException() {
+    }
 
-	public ConfigException(Throwable cause) {
-		super(cause);
-	}
+    public ConfigException(String message) {
+        super(message);
+    }
 
-	public ConfigException(String message, Throwable cause) {
-		super(message, cause);
-		
-	}
+    public ConfigException(Throwable cause) {
+        super(cause);
+    }
+
+    public ConfigException(String message, Throwable cause) {
+        super(message, cause);
+
+    }
 
 }

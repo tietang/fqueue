@@ -108,12 +108,27 @@
         </dependency>
     </dependencies>
 
+<!--    <distributionManagement>-->
+<!--        <repository>-->
+<!--            <id>${repository.id}</id>-->
+<!--            <url>${repository.url}</url>-->
+<!--            <name>${repository.name}</name>-->
+<!--            <layout>default</layout>-->
+<!--        </repository>-->
+<!--    </distributionManagement>-->
+
     <distributionManagement>
         <repository>
-            <id>${repository.id}</id>
-            <url>${repository.url}</url>
-            <name>${repository.name}</name>
-            <layout>default</layout>
+            <id>nexus-releases</id>
+            <name>release version</name>
+            <url>http://nexus.msxf.com/content/repositories/releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>snapshots version</name>
+            <url>http://nexus.msxf.com/content/repositories/snapshots/</url>
+        </snapshotRepository>
+
+
     </distributionManagement>
 </project>

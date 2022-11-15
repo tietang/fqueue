@@ -15,30 +15,30 @@
  */
 package com.google.code.fqueue.memcached;
 
+import com.google.code.fqueue.util.Config;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.PropertyConfigurator;
 
-import com.google.code.fqueue.util.Config;
-
 /**
  * @author sunli
- * @date 2011-5-18
  * @version $Id$
+ * @date 2011-5-18
  */
 public class StartServer {
-	private static final Log log = LogFactory.getLog(StartServer.class);
-	static {
-		PropertyConfigurator.configure("config/log4j.properties");
-	}
+    private static final Log log = LogFactory.getLog(StartServer.class);
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		PropertyConfigurator.configureAndWatch("config/log4j.properties", 5000);
-		StartNewQueue.newQueueInstance(Integer.parseInt(Config.getSetting("port")));
-		log.info("running at port " + Config.getSetting("port"));
-	}
+    static {
+        PropertyConfigurator.configure("config/log4j.properties");
+    }
+
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        PropertyConfigurator.configureAndWatch("config/log4j.properties", 5000);
+        StartNewQueue.newQueueInstance(Integer.parseInt(Config.getSetting("port")));
+        log.info("running at port " + Config.getSetting("port"));
+    }
 
 }

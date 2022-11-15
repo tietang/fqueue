@@ -14,32 +14,35 @@
  *  limitations under the License.
  */
 package com.google.code.fqueue.exception;
+
 /**
- *@author sunli
- *@date 2011-5-18
- *@version $Id$
+ * @author sunli
+ * @version $Id$
+ * @date 2011-5-18
  */
 public class FileEOFException extends Exception {
 
-	private static final long serialVersionUID = 4701796168682302255L;
+    private static final long serialVersionUID = 4701796168682302255L;
 
-	public FileEOFException() {
-		super();
-	}
-	public FileEOFException(String message) {
-		super(message);
-	}
+    public FileEOFException() {
+        super();
+    }
 
-	public FileEOFException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public FileEOFException(String message) {
+        super(message);
+    }
 
-	public FileEOFException(Throwable cause) {
-		super(cause);
-	}
-	@Override
-	public  Throwable fillInStackTrace() {
-		return this;
-	}
+    public FileEOFException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public FileEOFException(Throwable cause) {
+        super(cause);
+    }
+
+    @Override
+    public Throwable fillInStackTrace() {
+        return this;
+    }
 
 }

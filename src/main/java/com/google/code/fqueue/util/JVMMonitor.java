@@ -16,34 +16,16 @@
 
 package com.google.code.fqueue.util;
 
-import java.lang.management.ClassLoadingMXBean;
-import java.lang.management.GarbageCollectorMXBean;
-import java.lang.management.ManagementFactory;
-import java.lang.management.MemoryMXBean;
-import java.lang.management.MemoryPoolMXBean;
-import java.lang.management.MemoryUsage;
-import java.lang.management.OperatingSystemMXBean;
-import java.lang.management.ThreadMXBean;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.management.AttributeList;
-import javax.management.InstanceNotFoundException;
-import javax.management.MBeanServer;
-import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
-import javax.management.ReflectionException;
+import javax.management.*;
+import java.lang.management.*;
+import java.util.*;
 
 /**
  * 对JVM的状态监控
- * 
+ *
  * @author sunli
- * @date 2010-8-13
  * @version $Id$
+ * @date 2010-8-13
  */
 public class JVMMonitor {
     private static final OperatingSystemMXBean bean = ManagementFactory.getOperatingSystemMXBean();
@@ -61,6 +43,7 @@ public class JVMMonitor {
     private static final Set<String> codeCacheSpace = new HashSet<String>();
     private static final List<String> youngGenCollectorNames = new ArrayList<String>();
     private static final List<String> fullGenCollectorNames = new ArrayList<String>();
+
     static {
         // 各种GC下的eden名字
         edenSpace.add("Eden Space");// -XX:+UseSerialGC
@@ -115,7 +98,7 @@ public class JVMMonitor {
 
     /**
      * 获取系统负载
-     * 
+     *
      * @return
      */
     public static double getSystemLoad() {
@@ -126,7 +109,7 @@ public class JVMMonitor {
 
     /**
      * 获取CPU个数
-     * 
+     *
      * @return
      */
     public static int getAvailableProcessors() {
@@ -137,12 +120,12 @@ public class JVMMonitor {
 
     /**
      * 返回文件描述符数
-     * 
+     *
      * @return
      */
     public static String getFileDescriptor() {
         try {
-            String[] attributeNames = new String[] { "MaxFileDescriptorCount", "OpenFileDescriptorCount" };
+            String[] attributeNames = new String[]{"MaxFileDescriptorCount", "OpenFileDescriptorCount"};
             ObjectName name;
             name = new ObjectName("java.lang:type=OperatingSystem");
             AttributeList attributes = getPlatformMBeanServer().getAttributes(name, attributeNames);
@@ -167,7 +150,7 @@ public class JVMMonitor {
 
     /**
      * 获取所有的线程数
-     * 
+     *
      * @return
      */
     public static int getAllThreadsCount() {
@@ -176,7 +159,7 @@ public class JVMMonitor {
 
     /**
      * 获取峰值线程数
-     * 
+     *
      * @return
      */
     public static int getPeakThreadCount() {
@@ -185,7 +168,7 @@ public class JVMMonitor {
 
     /**
      * Returns the current number of live daemon threads.
-     * 
+     *
      * @return the current number of live daemon threads.
      */
     public static int getDaemonThreadCount() {
@@ -194,7 +177,7 @@ public class JVMMonitor {
 
     /**
      * 获取启动以来创建的线程数
-     * 
+     *
      * @return
      */
     public static long getTotalStartedThreadCount() {
@@ -203,7 +186,7 @@ public class JVMMonitor {
 
     /**
      * 获取死锁数
-     * 
+     *
      * @return 死锁数
      */
     public static int getDeadLockCount() {
@@ -219,7 +202,7 @@ public class JVMMonitor {
 
     /**
      * 获取虚拟机的heap内存使用情况
-     * 
+     *
      * @return
      */
     public static MemoryUsage getJvmHeapMemory() {
@@ -229,7 +212,7 @@ public class JVMMonitor {
 
     /**
      * 获取虚拟机的noheap内存使用情况
-     * 
+     *
      * @return
      */
     public static MemoryUsage getJvmNoHeapMemory() {
@@ -239,7 +222,7 @@ public class JVMMonitor {
 
     /**
      * 获取当前JVM占用的总内存
-     * 
+     *
      * @return
      */
     public static long getTotolMemory() {
@@ -250,7 +233,7 @@ public class JVMMonitor {
 
     /**
      * 获取当前JVM给应用分配的内存
-     * 
+     *
      * @return
      */
     public static long getUsedMemory() {
@@ -261,7 +244,7 @@ public class JVMMonitor {
 
     /**
      * 获取JVM能使用到的最大内存
-     * 
+     *
      * @return
      */
     public static long getMaxUsedMemory() {
@@ -270,7 +253,7 @@ public class JVMMonitor {
 
     /**
      * 获取启动以来加载的总的class数
-     * 
+     *
      * @return
      */
     public static long getTotalLoadedClassCount() {
@@ -279,7 +262,7 @@ public class JVMMonitor {
 
     /**
      * 获取当前JVM加载的class数
-     * 
+     *
      * @return
      */
     public static int getLoadedClassCount() {
@@ -288,7 +271,7 @@ public class JVMMonitor {
 
     /**
      * 获取JVM被启动以来unload的class数
-     * 
+     *
      * @return
      */
     public static long getUnloadedClassCount() {
@@ -298,7 +281,7 @@ public class JVMMonitor {
 
     /**
      * 获取GC的时间
-     * 
+     *
      * @return
      */
     public static String getGcTime() {
