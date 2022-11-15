@@ -111,6 +111,7 @@ public class LogEntity {
 			} else {
 				this.readerPosition = LogEntity.messageStartPosition;
 			}
+			fc.close();
 		}
 		executor.execute(new Sync());
 
@@ -238,21 +239,21 @@ public class LogEntity {
 		        return;
 		    }
 			mappedByteBuffer.force();
-			AccessController.doPrivileged(new PrivilegedAction<Object>() {
-				public Object run() {
-					try {
-						Method getCleanerMethod = mappedByteBuffer.getClass()
-								.getMethod("cleaner", new Class[0]);
-						getCleanerMethod.setAccessible(true);
-						sun.misc.Cleaner cleaner = (sun.misc.Cleaner) getCleanerMethod
-								.invoke(mappedByteBuffer, new Object[0]);
-						cleaner.clean();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					return null;
-				}
-			});
+//			AccessController.doPrivileged(new PrivilegedAction<Object>() {
+//				public Object run() {
+//					try {
+//						Method getCleanerMethod = mappedByteBuffer.getClass()
+//								.getMethod("cleaner", new Class[0]);
+//						getCleanerMethod.setAccessible(true);
+//						 Cleaner cleaner = ( Cleaner) getCleanerMethod
+//								.invoke(mappedByteBuffer, new Object[0]);
+//						cleaner.clean();
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
+//					return null;
+//				}
+//			});
 			mappedByteBuffer = null;
 			executor.shutdown();
 			fc.close();

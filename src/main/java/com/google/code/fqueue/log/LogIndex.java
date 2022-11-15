@@ -27,6 +27,7 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import jdk.internal.ref.Cleaner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -197,7 +198,7 @@ public class LogIndex {
 					try {
 						Method getCleanerMethod = mappedByteBuffer.getClass().getMethod("cleaner", new Class[0]);
 						getCleanerMethod.setAccessible(true);
-						sun.misc.Cleaner cleaner = (sun.misc.Cleaner) getCleanerMethod.invoke(mappedByteBuffer,
+						 Cleaner cleaner = ( Cleaner) getCleanerMethod.invoke(mappedByteBuffer,
 								new Object[0]);
 						cleaner.clean();
 					} catch (Exception e) {

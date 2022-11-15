@@ -15,6 +15,9 @@
  */
 package com.google.code.fqueue.log;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -24,15 +27,11 @@ import java.nio.channels.FileChannel.MapMode;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.code.fqueue.util.MappedByteBufferUtil;
 
 /**
  * @author sunli
- * @date 2011-5-18
  * @version $Id$
+ * @date 2011-5-18
  */
 public class FileRunner implements Runnable {
     private final Logger log = LoggerFactory.getLogger(FileRunner.class);
@@ -102,7 +101,7 @@ public class FileRunner implements Runnable {
             mappedByteBuffer.putInt(-1);// 12next fileindex
             mappedByteBuffer.putInt(-2);// 16
             mappedByteBuffer.force();
-            MappedByteBufferUtil.clean(mappedByteBuffer);
+//            MappedByteBufferUtil.clean(mappedByteBuffer);
             fc.close();
             raFile.close();
             return true;
@@ -110,8 +109,8 @@ public class FileRunner implements Runnable {
             return false;
         }
     }
-    
-    public void exit(){
+
+    public void exit() {
         keepRunning = false;
     }
 }

@@ -29,7 +29,7 @@ public class FSQueueTest extends TestCase {
     private static FQueue queue;
     static {
         try {
-            queue = new FQueue("db");
+            queue = new FQueue("db",20);
             queue.clear();
         } catch (Exception e) {
             e.printStackTrace();
