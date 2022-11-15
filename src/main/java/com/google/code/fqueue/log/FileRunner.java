@@ -73,6 +73,7 @@ public class FileRunner implements Runnable {
             if (filePath != null) {
                 File delFile = new File(filePath);
                 delFile.delete();
+                System.out.println("删除的文件："+delFile);
             }
 
             if (fileNum != null) {
